@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,
+  maximum-scale=1.0, minimum-scale=1.0"
+    <meta charset="UTF-8">
+    <title>상영예정작</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        a {
+            color: black;
+            text-decoration-line: none;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+        }
+
+        a:active {
+            color: black;
+        }
+
+        .menu {
+            font-size: 45px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu > li {
+            display: inline;
+            width: 450px;
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                font-size: 35px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .menu > li {
+                margin-top: 20px;
+            }
+        }
+
+        hr {
+            width: 97%;
+            height: 2px;
+            background-color: black;
+            border: 0;
+            margin-top: 30px;
+        }
+
+        .pre-box {
+            width: 80%;
+            margin: 40px auto;
+            padding-left: 50px;
+        }
+
+        .pre-movies {
+            width: 250px;
+            height: 460px;
+            margin: 20px;
+            float: left;
+        }
+
+        @media (max-width: 740px) {
+            .pre-box {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .pre-movies > h4,
+            .pre-movies > h5 {
+                text-align: left;
+            }
+        }
+
+        .pre-movies > a > img {
+            width: 250px;
+        }
+
+        .text {
+            margin-top: 7px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pre-movies > h4 {
+            font-size: 20px;
+        }
+
+        .pre-movies > h5 {
+            font-size: 14px;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            show();
+        });
+
+        function show() {
+            $.ajax({
+                type: "GET",
+                url: '/pre',
+                data: {},
+                success: function (response) {
+                    let rows = response['preMovies']
+                    for (let i = 0; i < rows.length; i++) {
+                        let title = rows[i]['title']
+                        let img = rows[i]['img']
+                        let link = rows[i]['link']
+                        let booking = rows[i]['booking']
+                        let date = rows[i]['date']
+                        let schedule = rows[i]['schedule']
+
+                        let today = new Date()
+                        let dDay = new Date(date)
+                        let remain = today - dDay
+                        let diffDay = Math.floor(remain / (1000 * 60 * 60 * 24))
+
+                        let temp_html = ``
+                        if (schedule === '개봉예정') {
+                            temp_html = `<div class="pre-movies">
+                                        <a href="http://www.cgv.co.kr/${link}"><img src="${img}"></a>
+                                        <h4 class="text">${title} </h4>
+                                        <h5 style="margin-top: 5px; margin-bottom: 5px;">${booking}</h5>
+                                        <h5 style="color: gray; margin-top: 5px">${date} ${schedule}</h5>
+                                    </div>`
+                        } else if (diffDay === 0) {
+                            $('.pre-movies').hide()
+                        } else {
+                            temp_html = `<div class="pre-movies">
+                                        <a href="http://www.cgv.co.kr/${link}"><img src="${img}"></a>
+                                        <h4 class="text">${title} </h4>
+                                        <h5 style="margin-top: 5px; margin-bottom: 5px;">${booking}</h5>
+                                        <h5 style="color: gray; margin-top: 5px">${date} ${schedule} <span style="color: red">D${diffDay}</span></h5>
+                                    </div>`
+                        }
+                        $('#preBox').append(temp_html)
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<div>
+    <ul class="menu">
+        <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png" style="width: 140px"></a></li>
+        <li><a href="#">무비 차트</a></li>
+        <li><a href="#">상영예정작</a></li>
+        <li><a href="#">코멘트 남기기</a></li>
+    </ul>
+</div>
+<hr/>
+<div class="pre-box" id="preBox">
+</div>
+</body>
+</html>
