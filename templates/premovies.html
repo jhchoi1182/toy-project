@@ -12,20 +12,18 @@
             color: black;
             text-decoration-line: none;
         }
-
         a:visited {
             color: black;
         }
-
         a:hover {
             color: black;
         }
-
         a:active {
             color: black;
         }
 
         .menu {
+            list-style-type: none;
             font-size: 45px;
             display: flex;
             flex-direction: row;
@@ -34,7 +32,6 @@
         }
 
         .menu > li {
-            display: inline;
             width: 450px;
         }
 
@@ -47,10 +44,36 @@
                 align-items: center;
                 text-align: center;
             }
-
             .menu > li {
                 margin-top: 20px;
             }
+        }
+
+        .login {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .login {
+                margin-top: 30px;
+            }
+        }
+
+        .login > li {
+            width: 150px;
+        }
+
+        .login > li > a > img {
+            width: 50px;
+        }
+
+        .login > li > a > span {
+            font-size: 30px;
+            display: block;
         }
 
         hr {
@@ -139,7 +162,7 @@
                         if (schedule === '개봉예정') {
                             temp_html = `<div class="pre-movies">
                                         <a href="http://www.cgv.co.kr/${link}"><img src="${img}"></a>
-                                        <h4 class="text">${title} </h4>
+                                        <h4 class="text">${title}</h4>
                                         <h5 style="margin-top: 5px; margin-bottom: 5px;">${booking}</h5>
                                         <h5 style="color: gray; margin-top: 5px">${date} ${schedule}</h5>
                                     </div>`
@@ -148,7 +171,7 @@
                         } else {
                             temp_html = `<div class="pre-movies">
                                         <a href="http://www.cgv.co.kr/${link}"><img src="${img}"></a>
-                                        <h4 class="text">${title} </h4>
+                                        <h4 class="text">${title}</h4>
                                         <h5 style="margin-top: 5px; margin-bottom: 5px;">${booking}</h5>
                                         <h5 style="color: gray; margin-top: 5px">${date} ${schedule} <span style="color: red">D${diffDay}</span></h5>
                                     </div>`
@@ -163,10 +186,15 @@
 <body>
 <div>
     <ul class="menu">
-        <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png" style="width: 140px"></a></li>
+        <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"
+                                                  style="width: 140px"></a></li>
         <li><a href="#">무비 차트</a></li>
         <li><a href="#">상영예정작</a></li>
         <li><a href="#">코멘트 남기기</a></li>
+        <div class="login">
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a></li>
+            <li style="margin-right: 10px"><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a></li>
+        </div>
     </ul>
 </div>
 <hr/>
