@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,
-  maximum-scale=1.0, minimum-scale=1.0"
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>상영예정작</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -29,12 +28,15 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            margin-top: 25px;
-            margin-bottom: 25px;
+            margin: 25px auto;
         }
 
         .menu > li {
-            width: 450px;
+            width: 25%;
+        }
+
+        .menu > li:first-child {
+            margin-left: 45px;
         }
 
         @media (max-width: 600px) {
@@ -46,9 +48,15 @@
                 align-items: center;
                 text-align: center;
             }
+
             .menu > li {
-                margin-top: 20px;
+                width: 100%;
+                margin: 10px 40px 10px 0px;
             }
+
+            .menu > li:first-child {
+            margin-left: 0px;
+        }
         }
 
         .login {
@@ -57,6 +65,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            margin-right: 45px;
         }
 
         @media (max-width: 600px) {
@@ -66,7 +75,7 @@
         }
 
         .login > li {
-            width: 150px;
+            width: 130px;
         }
 
         .login > li > a > img {
@@ -88,8 +97,12 @@
 
         .pre-box {
             width: 80%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             margin: 40px auto;
-            padding-left: 50px;
         }
 
         .pre-movies {
@@ -97,21 +110,6 @@
             height: 460px;
             margin: 20px;
             float: left;
-        }
-
-        @media (max-width: 740px) {
-            .pre-box {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
-
-            .pre-movies > h4,
-            .pre-movies > h5 {
-                text-align: left;
-            }
         }
 
         .pre-movies > a > img {
@@ -188,13 +186,16 @@
 <body>
 <div>
     <ul class="menu">
-        <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png" style="width: 140px"></a></li>
+        <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"
+                                                  style="width: 140px"></a></li>
         <li><a href="#">무비 차트</a></li>
         <li><a href="#">상영예정작</a></li>
         <li><a href="#">코멘트 남기기</a></li>
         <div class="login">
-            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a></li>
-            <li style="margin-right: 10px"><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a></li>
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
+            </li>
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
+            </li>
         </div>
     </ul>
 </div>
