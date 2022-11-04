@@ -1,11 +1,132 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>CGV</title>
+    <style>
+        .nav-link{
+            font-size: 60px;
+            color: black;
+        }
+        .hr-solid{
+            border-top: 5px solid;
+            background-color:black;
+        }
+        .wrap {
+            margin: auto;
+
+        }
+
+        .id_part {
+            float: right;
+            text-decoration-line: none;
+            color: black;
+            padding-left: 30px;
+        }
+    </style>
+
+    <script>
+        //로딩이 완료되면 시작.
+        $(document).ready(function () {
+            listing();
+        });
+
+        function listing() {
+
+            $.ajax({
+                type: 'GET',
+                url: '/movie',
+                data: {},
+                success: function (response) {
+                    let rows = response['movies']
+
+                    for(let i = 0; i < rows.length; i++) {
+                        let image = rows[i]['image']
+                        let title = rows[i]['title']
+                        let rate = rows[i]['rate']
+                        let rank = rows[i]['rank']
+
+                        let temp_html = `<div class="col">
+                                            <div class="card">
+                                                <img src="${image}"
+                                                     class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${title},${rank}</h5>
+                                                    <p class="card-text">${rate}</p>
+                                                </div>
+                                            </div>
+                                        </div>  `
+
+                        $('#cards-box').append(temp_html)
+
+
+                    }
+
+                }
+            })
+
+            $.ajax({
+                type: 'POST',
+                url: '/movie',
+                data: {},
+                success: function (response) {
+
+
+                }
+            });
+
+
+
+
+        }
+
+
+    </script>
+
+
+</head>
+
+
+<body>
+<<<<<<< HEAD
+    <div>
+        <a class="id_part" href="#">로그인</a>
+        <a class="id_part" href="#">회원가입</a>
+    </div>
+
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a  aria-current="page"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">무비 차트</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">상영예정작</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">코멘트 남기기</a>
+        </li>
+    </ul>
+
+
+    <hr class="hr-solid">
+    <div class="wrap">
+        <div id='cards-box' class="row row-cols-1 row-cols-md-5 g-4">
+
+        </div>
+    </div>
 
 </body>
+
 </html>
