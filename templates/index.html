@@ -2,9 +2,234 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>CGV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .mypic {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mytitle2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .mytitle2 > button {
+            width: 260px;
+            height: 50px;
+
+            background-color: dimgrey;
+            color: whitesmoke;
+
+            border-radius: 50px;
+            border: 1px solid dimgrey;
+
+            margin-top: 55px;
+        }
+
+        .mytitle2 > button:hover {
+            border: 3px solid black;
+        }
+
+        .mycomment {
+            color: grey;
+        }
+
+        .mycards {
+            max-width: 1200px;
+            width: 95%;
+            margin: 20px auto 0px auto;
+
+        }
+
+        .mypost {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 0px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 3px 0px gray;
+            display: none;
+        }
+
+        .mybtn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .mybtn > button {
+            margin-right: 10px;
+        }
+
+        a {
+            color: black;
+            text-decoration-line: none;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+        }
+
+        a:active {
+            color: black;
+        }
+
+        .menu {
+            font-size: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu > li {
+            display: inline;
+            width: 450px;
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                font-size: 35px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .menu > li {
+                margin-top: 20px;
+            }
+
+        }
+
+        .id_part {
+            float: right;
+            text-decoration-line: none;
+            color: black;
+            padding-left: 30px;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            show_comment()
+        });
+
+
+        function save_comment() {
+            let name = $('#name').val()
+            let comment = $('#comment').val()
+            $.ajax({
+                type: 'POST',
+                url: '/homework',
+                data: {name_give: name, comment_give: comment},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+        function show_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/homework",
+                data: {},
+                success: function (response) {
+                    let rows = response['comments']
+                    for (let i = 0; i < rows.length; i++){
+                        let name = rows[i]['name']
+                        let comment = rows[i]['comment']
+
+                        let temp_html = `<div class="col">
+                                             <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${name}</h5>
+                                                    <p class="mycomment">${comment}</p>
+                                                </div>
+                                            </div>
+                                        </div>`
+                        $(`#cards-list`).append(temp_html)
+
+
+                    }
+                }
+            });
+        }
+
+        function open_box() {
+            $('#post-box').show()
+        }
+
+        function close_box() {
+            $('#post-box').hide()
+        }
+    </script>
 </head>
 <body>
-
+<div class="mypic">
+    <div>
+        <a class="id_part" href="#">로그인</a>
+        <a class="id_part" href="#">회원가입</a>
+    </div>
+    <ul class="menu">
+        <a href="">
+            <img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png">
+        </a>
+        <li><a href="">무비 차트</a></li>
+        <li><a href="">상영예정작</a></li>
+        <li><a href="">코멘트 남기기</a></li>
+    </ul>
+    <hr style="width:100%;height:3px;border:none;background-color:grey;">
+</div>
+<div class="mytitle2">
+    <button onclick="open_box()">감상평 남기기</button>
+</div>
+<div class="mypost" id="post-box">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" placeholder="url">
+        <label for="floatingInput">닉네임</label>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                  style="height: 100px"></textarea>
+        <label for="floatingTextarea2">댓글</label>
+    </div>
+    <div class="mybtn">
+        <button onclick="save_comment()" type="button" class="btn btn-dark">입력하기</button>
+        <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+    </div>
+</div>
+<div class="mycards">
+    <div class="row row-cols-1 row-cols-md-5 g-4" id="cards-list">
+    </div>
+</div>
 </body>
 </html>
