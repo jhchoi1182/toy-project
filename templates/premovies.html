@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>상영예정작</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -112,7 +112,6 @@
             width: 250px;
             height: 460px;
             margin: 20px;
-            float: left;
         }
 
         .pre-movies > a > img {
@@ -219,8 +218,8 @@
     <ul class="menu">
         <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"
                                                   style="width: 140px"></a></li>
-        <li><a href="#">무비 차트</a></li>
-        <li><a href="#">상영예정작</a></li>
+        <li><a href="#" onclick="location.href='index.html'">무비 차트</a></li>
+        <li><a href="#" onclick="location.reload();">상영예정작</a></li>
         <li><a href="#">코멘트 남기기</a></li>
         <div class="login">
             <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
@@ -233,6 +232,8 @@
 <hr/>
 <div class="pre-box" id="preBox">
 </div>
-<a href="#" class="toTop"><img src="https://t1.daumcdn.net/cfile/tistory/2423834154F0810214"></a>
+<div>
+    <a href="#" class="toTop"><img src="../static/images/totop.png"></a>
+</div>
 </body>
 </html>
