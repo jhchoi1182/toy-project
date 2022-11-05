@@ -4,7 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>상영예정작</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
     <style>
         a {
@@ -119,8 +124,9 @@
         }
 
         .text {
-            margin-top: 7px;
+            margin-top: 13px;
             margin-bottom: 5px;
+            font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -178,8 +184,8 @@
                             temp_html = `<div class="pre-movies">
                                         <a href="http://www.cgv.co.kr/${link}"><img src="${img}"></a>
                                         <h4 class="text">${title}</h4>
-                                        <h5 style="margin-top: 5px; margin-bottom: 5px;">${booking}</h5>
-                                        <h5 style="color: gray; margin-top: 5px">${date} ${schedule}</h5>
+                                        <h5 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;;">${booking}</h5>
+                                        <h5 style="color: gray; margin-top: 5px; font-weight: bold;">${date} ${schedule}</h5>
                                     </div>`
                         } else if (diffDay > -1) {
                             $('.pre-movies').hide()
@@ -187,8 +193,8 @@
                             temp_html = `<div class="pre-movies">
                                         <a href="http://www.cgv.co.kr/${link}"><img src="${img}"></a>
                                         <h4 class="text">${title}</h4>
-                                        <h5 style="margin-top: 5px; margin-bottom: 5px;">${booking}</h5>
-                                        <h5 style="color: gray; margin-top: 5px">${date} ${schedule} <span style="color: red">D${diffDay}</span></h5>
+                                        <h5 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">${booking}</h5>
+                                        <h5 style="color: gray; margin-top: 5px; font-weight: bold;">${date} ${schedule} <span style="color: red">D${diffDay}</span></h5>
                                     </div>`
                         }
                         $('#preBox').append(temp_html)
