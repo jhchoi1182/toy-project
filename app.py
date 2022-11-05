@@ -134,7 +134,6 @@ def movie_post():
 
     return jsonify({'msg': '로딩완료'})
 
-
 @app.route("/pre-movies", methods=["POST"])
 def premovies_post():
     db.preMovies.drop()
@@ -202,9 +201,7 @@ def signup():
 
     return jsonify({'msg': '회원가입 완료!'})
 
-
 SECRET_PRE = 'SPARTA'
-
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -231,24 +228,20 @@ def login():
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'});
 
-
 @app.route("/movie", methods=["GET"])
 def movie_get():
     movie_list = list(db.movies.find({}, {'_id': False}))
     return jsonify({'movies': movie_list})
-
 
 @app.route('/pre', methods=['GET'])
 def pre_get():
     premovie_list = list(db.preMovies.find({}, {'_id': False}))
     return jsonify({'preMovies': premovie_list})
 
-
 @app.route("/homework", methods=["GET"])
 def homework_get():
     comment_list = list(db.homework.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
