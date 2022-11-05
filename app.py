@@ -200,8 +200,6 @@ def signup():
 
     if not (user_id and user_password and user_re_password):
         return jsonify({'msg': '정보를 모두 입력해주세요!'})
-    if bool(re.Match(reg,user_id)):
-        return jsonify({'msg': '유효한 이메일 주소가 아닙니다.'})
     elif user_password != user_re_password:
         return jsonify({'msg': '비밀번혹가 일치하지 않습니다.'})
     else:
@@ -216,7 +214,7 @@ def signup():
     return jsonify({'msg': '회원가입 완료!'})
 
 
-SECRET_PRE = 'SPARTA'
+SECRET_PRE = 'SPA'
 
 
 @app.route('/login', methods=['POST'])
@@ -225,7 +223,9 @@ def login():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
     result = db.hiuser.find_one({'user_id': id_receive, 'user_password': pw_receive})
+
     nick= db.hiuser.find_one({'user_id':id_receive})
+
     name = (nick['user_name'])
 
 
@@ -236,7 +236,7 @@ def login():
             'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=600)
         }
 
-        token = jwt.encode(payload, SECRET_PRE, algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, SECRET_PRE, algorithm='HS256')
         return jsonify({'result': 'success', 'token': token,'name' : name});
 
         header = jwt.decode(payload, SECRET_PRE, algorithm='HS256')
