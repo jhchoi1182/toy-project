@@ -14,6 +14,7 @@
 
     <title>CGV</title>
     <style>
+
         a {
             color: black;
             text-decoration-line: none;
@@ -97,9 +98,8 @@
             display: block;
         }
 
-        hr {
-            width: 97%;
-            height: 2px;
+        .hr-solid {
+            border-top: 5px solid;
             background-color: black;
             border: 0;
             margin-top: 30px;
@@ -108,8 +108,6 @@
         .wrap {
             margin: auto;
         }
-
-
 
 
     </style>
@@ -167,36 +165,36 @@
 
         }
 
-
     </script>
-
-
 </head>
-
-
 <body>
 
-    <div>
+
+<div>
+
     <ul class="menu">
         <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"
                                                   style="width: 140px"></a></li>
-        <li><a href="" onclick="location.reload();">무비 차트</a></li>
-        <li><a href="" onclick="location.href='/pre-movies'">상영예정작</a></li>
-        <li><a href="">코멘트 남기기</a></li>
+        <li><a href="#" onclick="location.reload();">무비 차트</a></li>
+        <li><a href="#" onclick="location.href='/pre-movies'">상영예정작</a></li>
+        <li><a href="#">코멘트 남기기</a></li>
+
         <div class="login">
-            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
+            <li><a href="#"><img
+                    src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
             </li>
             <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
             </li>
         </div>
     </ul>
+
 </div>
-<hr/>
-    <div class="wrap">
-        <div id='cards-box' class="row row-cols-1 row-cols-md-5 g-4">
 
-        </div>
+<hr class="hr-solid">
+<div class="wrap">
+    <div id='cards-box' class="row row-cols-1 row-cols-md-5 g-4">
 
+    </div>
 </div>
 
 </body>
