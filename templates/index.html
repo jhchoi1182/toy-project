@@ -14,27 +14,104 @@
 
     <title>CGV</title>
     <style>
-        .nav-link {
-            font-size: 60px;
+        a {
+            color: black;
+            text-decoration-line: none;
+        }
+
+        a:visited {
             color: black;
         }
 
-        .hr-solid {
-            border-top: 5px solid;
+        a:hover {
+            color: black;
+        }
+
+        a:active {
+            color: black;
+        }
+
+        .menu {
+            list-style-type: none;
+            font-size: 45px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 25px auto;
+        }
+
+        .menu > li {
+            width: 25%;
+        }
+
+        .menu > li:first-child {
+            margin-left: 45px;
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                font-size: 35px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .menu > li {
+                width: 100%;
+                margin: 10px 40px 10px 0px;
+            }
+
+            .menu > li:first-child {
+                margin-left: 0px;
+            }
+        }
+
+        .login {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-right: 45px;
+        }
+
+        @media (max-width: 600px) {
+            .login {
+                margin-top: 10px;
+            }
+        }
+
+        .login > li {
+            width: 130px;
+        }
+
+        .login > li > a > img {
+            width: 50px;
+        }
+
+        .login > li > a > span {
+            font-size: 25px;
+            display: block;
+        }
+
+        hr {
+            width: 97%;
+            height: 2px;
             background-color: black;
+            border: 0;
+            margin-top: 30px;
         }
 
         .wrap {
             margin: auto;
-
         }
 
-        .id_part {
-            float: right;
-            text-decoration-line: none;
-            color: black;
-            padding-left: 30px;
-        }
+
+
+
     </style>
 
     <script>
@@ -100,27 +177,21 @@
 <body>
 
     <div>
-        <a class="id_part" href="#" target="_blank">로그인</a>
-        <a class="id_part" href="#" target="_blank">회원가입</a>
-    </div>
-
-    <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-            <a  aria-current="page"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">무비 차트</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">상영예정작</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">코멘트 남기기</a>
-        </li>
+    <ul class="menu">
+        <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"
+                                                  style="width: 140px"></a></li>
+        <li><a href="" onclick="location.reload();">무비 차트</a></li>
+        <li><a href="" onclick="location.href='/pre-movies'">상영예정작</a></li>
+        <li><a href="">코멘트 남기기</a></li>
+        <div class="login">
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
+            </li>
+            <li><a href="#"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
+            </li>
+        </div>
     </ul>
-
-
-    <hr class="hr-solid">
+</div>
+<hr/>
     <div class="wrap">
         <div id='cards-box' class="row row-cols-1 row-cols-md-5 g-4">
 
