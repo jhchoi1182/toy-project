@@ -220,6 +220,12 @@
                 return false;
             });
         });
+        function logout(){
+            $.removeCookie('mytoken', {path: '/'});
+            sessionStorage.clear()
+            window.location.href = '/';
+
+        }
     </script>
 </head>
 <body>
