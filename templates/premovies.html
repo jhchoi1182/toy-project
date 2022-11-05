@@ -156,6 +156,15 @@
     <script>
         $(document).ready(function () {
             show();
+            if(sessionStorage.getItem('mytoken') != null){
+                let name = sessionStorage.getItem('name')
+                $('#login').hide();
+                $('#register').hide();
+                user_html =`<p>${name}님 환영합니다</p><button type="button" onclick="logout()">로그아웃</button>`
+                $('#user').append(user_html)
+
+
+                    }
         });
 
         function show() {
@@ -215,6 +224,12 @@
                 return false;
             });
         });
+        function logout(){
+            $.removeCookie('mytoken', {path: '/'});
+            sessionStorage.clear()
+            window.location.href = '/';
+
+        }
 
     </script>
 </head>
@@ -226,10 +241,12 @@
         <li><a href="#" onclick="location.href='/'">무비 차트</a></li>
         <li><a href="#" onclick="location.reload();">상영예정작</a></li>
         <li><a href="#" onclick="location.href='/comments'">코멘트 남기기</a></li>
-        <div class="login">
-            <li><a href="#" onclick="location.href='/login'"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
+        <div class="login" id="user">
+            <li id="login" name="login"><a href="#"><img
+                    src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
             </li>
-            <li><a href="#" onclick="location.href='/register'"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
+            <li name="register" id="register"><a href="#"><img
+                    src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
             </li>
         </div>
     </ul>

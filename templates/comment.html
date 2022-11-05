@@ -167,12 +167,22 @@
     <script>
         $(document).ready(function () {
             show_comment()
+            if(sessionStorage.getItem('mytoken') != null){
+                let name = sessionStorage.getItem('name')
+                $('#login').hide();
+                $('#register').hide();
+                user_html =`<p>${name}님 환영합니다</p><button type="button" onclick="logout()">로그아웃</button>`
+                $('#user').append(user_html)
+
+
+            }
         });
 
 
         function save_comment() {
-            let name = $('#name').val()
+            let name = sessionStorage.getItem('name')
             let comment = $('#comment').val()
+
             $.ajax({
                 type: 'POST',
                 url: '/homework',
@@ -212,11 +222,23 @@
         }
 
         function open_box() {
-            $('#post-box').show()
+            if(sessionStorage.getItem('mytoken') != null){
+                $('#post-box').show()
+
+            }else{
+                alert('로그인 후 이용해주세요.')
+            }
+
         }
 
         function close_box() {
             $('#post-box').hide()
+        }
+        function logout(){
+            $.removeCookie('mytoken', {path: '/'});
+            sessionStorage.clear()
+            window.location.href = '/';
+
         }
     </script>
 </head>
@@ -229,11 +251,12 @@
         <li><a href="#" onclick="location.href='/pre-movies'">상영예정작</a></li>
         <li><a href="#" onclick="location.reload();">코멘트 남기기</a></li>
 
-        <div class="login">
-            <li><a href="#" onclick="location.href='/login'"><img
+        <div class="login" id="user">
+            <li id="login" name="login"><a href="#"><img
                     src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
             </li>
-            <li><a href="#" onclick="location.href='/register'"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
+            <li name="register" id="register"><a href="#"><img
+                    src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
             </li>
         </div>
     </ul>
@@ -243,10 +266,6 @@
     <button onclick="open_box()">감상평 남기기</button>
 </div>
 <div class="mypost" id="post-box">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="name" placeholder="url">
-        <label for="floatingInput">닉네임</label>
-    </div>
     <div class="form-floating">
         <textarea class="form-control" placeholder="Leave a comment here" id="comment"
                   style="height: 100px"></textarea>
