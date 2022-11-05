@@ -119,7 +119,7 @@ def movie_post():
 
 @app.route("/pre-movies", methods=["POST"])
 def premovies_post():
-    db.movies.drop()
+    db.preMovies.drop()
     tagTemp = '#contents > div.wrap-movie-chart > div.sect-movie-chart > ol:nth-child(number) > li'
     for i in range(4, 52, 2):
         tag = tagTemp.replace('number', str(i))
