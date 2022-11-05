@@ -26,11 +26,9 @@ def premovies():
 def movie_post():
     return jsonify({'msg':'로딩완료'})
 
-
 @app.route("/movie", methods=["GET"])
 def movie_get():
     movie_list = list(db.movies.find({}, {'_id': False}))
-
     return jsonify({'movies':movie_list})
 
 @app.route('/pre', methods=['GET'])
