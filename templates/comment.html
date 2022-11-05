@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -13,6 +13,7 @@
             crossorigin="anonymous"></script>
 
     <title>CGV</title>
+
     <style>
         a {
             color: black;
@@ -105,110 +106,118 @@
             margin-top: 30px;
         }
 
-        .pre-box {
-            width: 80%;
+        .mytitle2 {
             display: flex;
-            flex-direction: row;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
-            margin: 40px auto;
+            justify-content: center;
         }
 
-        .movies {
-            width: 250px;
-            height: 460px;
-            margin: 20px;
+
+        .mytitle2 > button {
+            width: 260px;
+            height: 50px;
+
+            background-color: dimgrey;
+            color: whitesmoke;
+
+            border-radius: 50px;
+            border: 1px solid dimgrey;
+
+            margin-top: 55px;
         }
 
-        .movies > a > img {
-            width: 250px;
+        .mytitle2 > button:hover {
+            border: 3px solid black;
         }
 
-        .text {
-            margin-top: 13px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .mycomment {
+            color: grey;
         }
 
-        .movies > h4 {
-            font-size: 20px;
+        .mycards {
+            max-width: 1200px;
+            width: 95%;
+            margin: 20px auto 0px auto;
+
         }
 
-        .movies > h5 {
-            font-size: 14px;
-        }
-
-        .toTop {
-            width: 40px;
-            height: 40px;
-            position: fixed;
-            right: 30px;
-            bottom: 30px;
+        .mypost {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 0px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 3px 0px gray;
             display: none;
         }
 
-        .toTop > img {
-            width: 40px;
+        .mybtn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .mybtn > button {
+            margin-right: 10px;
         }
 
     </style>
-
     <script>
-        //로딩이 완료되면 시작.
         $(document).ready(function () {
-            listing();
+            show_comment()
         });
 
-        function listing() {
 
-            $.ajax({
-                type: 'GET',
-                url: '/movie',
-                data: {},
-                success: function (response) {
-                    let rows = response['movies']
-
-                    for (let i = 0; i < rows.length; i++) {
-                        let image = rows[i]['image']
-                        let title = rows[i]['title']
-                        let rate = rows[i]['rate']
-                        let rank = rows[i]['rank']
-
-                        let temp_html = `<div class="movies">
-                                            <a href="#"><img src="${image}"></a>
-                                            <h4 class="text">${title}, ${rank}</h4>
-                                            <h5 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">${rate}</h5>
-                                        </div>`
-                        $('#cards-box').append(temp_html)
-                    }
-                }
-            })
+        function save_comment() {
+            let name = $('#name').val()
+            let comment = $('#comment').val()
             $.ajax({
                 type: 'POST',
-                url: '/movie',
+                url: '/homework',
+                data: {name_give: name, comment_give: comment},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+        function show_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/homework",
                 data: {},
                 success: function (response) {
+                    let rows = response['comments']
+                    for (let i = 0; i < rows.length; i++) {
+                        let name = rows[i]['name']
+                        let comment = rows[i]['comment']
+
+                        let temp_html = `<div class="col">
+                                             <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${name}</h5>
+                                                    <p class="mycomment">${comment}</p>
+                                                </div>
+                                            </div>
+                                        </div>`
+                        $(`#cards-list`).append(temp_html)
+
+
+                    }
                 }
             });
         }
 
-        $(document).ready(function () {
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 100) {
-                    $('.toTop').fadeIn();
-                } else {
-                    $('.toTop').fadeOut();
-                }
-            });
-            $('.toTop').click(function () {
-                $('html, body').animate({scrollTop: 0}, 300);
-                return false;
-            });
-        });
+        function open_box() {
+            $('#post-box').show()
+        }
+
+        function close_box() {
+            $('#post-box').hide()
+        }
     </script>
 </head>
 <body>
@@ -216,9 +225,9 @@
     <ul class="menu">
         <li><a href="https://www.cgv.co.kr/"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"
                                                   style="width: 140px"></a></li>
-        <li><a href="#" onclick="location.reload();">무비 차트</a></li>
+        <li><a href="#" onclick="location.href='/'">무비 차트</a></li>
         <li><a href="#" onclick="location.href='/pre-movies'">상영예정작</a></li>
-        <li><a href="#" onclick="location.href='/comments'">코멘트 남기기</a></li>
+        <li><a href="#" onclick="location.reload();">코멘트 남기기</a></li>
 
         <div class="login">
             <li><a href="#"><img
@@ -230,11 +239,27 @@
     </ul>
 </div>
 <hr/>
-<div class="pre-box" id="cards-box">
+<div class="mytitle2">
+    <button onclick="open_box()">감상평 남기기</button>
 </div>
-<div>
-    <a href="#" class="toTop"><img src="../static/images/totop.png"></a>
+<div class="mypost" id="post-box">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" placeholder="url">
+        <label for="floatingInput">닉네임</label>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                  style="height: 100px"></textarea>
+        <label for="floatingTextarea2">댓글</label>
+    </div>
+    <div class="mybtn">
+        <button onclick="save_comment()" type="button" class="btn btn-dark">입력하기</button>
+        <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+    </div>
+</div>
+<div class="mycards">
+    <div class="row row-cols-1 row-cols-md-5 g-4" id="cards-list">
+    </div>
 </div>
 </body>
-
 </html>
