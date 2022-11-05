@@ -24,16 +24,13 @@ data = requests.get('http://www.cgv.co.kr/movies/pre-movies.aspx', headers=heade
 
 soup = BeautifulSoup(data.text, 'html.parser')
 
-
 @app.route('/')
 def home():
     return render_template('index.html')
 
-
 @app.route('/pre-movies')
 def premovies():
     return render_template('premovies.html')
-
 
 @app.route('/comments')
 def comment():
@@ -46,9 +43,11 @@ def movie_post():
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    data = requests.get('http://www.cgv.co.kr/movies/?lt=1&ft=0', headers=headers)
+    data = requests.get('http://www.cgv.co.kr/movies/', headers=headers)
 
     soup = BeautifulSoup(data.text, 'html.parser')
+
+
 
     title_temp = '#contents > div.wrap-movie-chart > div.sect-movie-chart > ol:nth-child(2) > li:nth-child(number) > div.box-contents > a > strong'
     rank_temp = '#contents > div.wrap-movie-chart > div.sect-movie-chart > ol:nth-child(2) > li:nth-child(number) > div.box-image > strong'
@@ -127,7 +126,7 @@ def movie_post():
 
 @app.route("/pre-movies", methods=["POST"])
 def premovies_post():
-    db.movies.drop()
+    db.preMovies.drop()
     tagTemp = '#contents > div.wrap-movie-chart > div.sect-movie-chart > ol:nth-child(number) > li'
     for i in range(4, 52, 2):
         tag = tagTemp.replace('number', str(i))
@@ -188,6 +187,7 @@ def login_page():
 @app.route('/register')
 def register_page():
     return render_template('register.html')
+
 
 @app.route('/register', methods=['POST'])
 def signup():
