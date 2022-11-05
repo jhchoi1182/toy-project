@@ -14,14 +14,16 @@
 
     <title>CGV</title>
     <style>
-        .nav-link{
+        .nav-link {
             font-size: 60px;
             color: black;
         }
-        .hr-solid{
+
+        .hr-solid {
             border-top: 5px solid;
-            background-color:black;
+            background-color: black;
         }
+
         .wrap {
             margin: auto;
 
@@ -50,7 +52,7 @@
                 success: function (response) {
                     let rows = response['movies']
 
-                    for(let i = 0; i < rows.length; i++) {
+                    for (let i = 0; i < rows.length; i++) {
                         let image = rows[i]['image']
                         let title = rows[i]['title']
                         let rate = rows[i]['rate']
@@ -86,8 +88,6 @@
             });
 
 
-
-
         }
 
 
@@ -98,15 +98,15 @@
 
 
 <body>
-<<<<<<< HEAD
+
     <div>
-        <a class="id_part" href="#" target=""_blank">로그인</a>
-        <a class="id_part" href="#" target=""_blank">회원가입</a>
+        <a class="id_part" href="#" target="_blank">로그인</a>
+        <a class="id_part" href="#" target="_blank">회원가입</a>
     </div>
 
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-            <a  aria-current="page"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"</a>
+            <a  aria-current="page"><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">무비 차트</a>
@@ -125,7 +125,8 @@
         <div id='cards-box' class="row row-cols-1 row-cols-md-5 g-4">
 
         </div>
-    </div>
+
+</div>
 
 </body>
 
