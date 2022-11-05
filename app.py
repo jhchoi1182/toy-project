@@ -40,6 +40,16 @@ def comment():
     return render_template('comment.html')
 
 
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
+
+@app.route('/register')
+def register_page():
+    return render_template('register.html')
+
+
 @app.route("/movie", methods=["POST"])
 def movie_post():
     db.movies.drop()
@@ -127,7 +137,7 @@ def movie_post():
 
 @app.route("/pre-movies", methods=["POST"])
 def premovies_post():
-    db.movies.drop()
+    db.preMovies.drop()
     tagTemp = '#contents > div.wrap-movie-chart > div.sect-movie-chart > ol:nth-child(number) > li'
     for i in range(4, 52, 2):
         tag = tagTemp.replace('number', str(i))
@@ -153,6 +163,7 @@ def premovies_post():
             db.preMovies.insert_one(doc)
     return jsonify({'msg': '로딩완료'})
 
+
 @app.route("/homework", methods=["POST"])
 def homework_post():
     name_receive = request.form["name_give"]
@@ -165,30 +176,6 @@ def homework_post():
     return jsonify({'msg': '작성완료!'})
 
 
-@app.route("/movie", methods=["GET"])
-def movie_get():
-    movie_list = list(db.movies.find({}, {'_id': False}))
-    return jsonify({'movies': movie_list})
-
-
-@app.route('/pre', methods=['GET'])
-def pre_get():
-    premovie_list = list(db.preMovies.find({}, {'_id': False}))
-    return jsonify({'preMovies': premovie_list})
-
-@app.route("/homework", methods=["GET"])
-def homework_get():
-   comment_list = list(db.homework.find({}, {'_id': False}))
-   return jsonify({'comments': comment_list})
-
-@app.route('/login')
-def login_page():
-    return render_template('login.html')
-
-@app.route('/register')
-def register_page():
-    return render_template('register.html')
-
 @app.route('/register', methods=['POST'])
 def signup():
     reg = "^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$"
@@ -200,13 +187,13 @@ def signup():
 
     if not (user_id and user_password and user_re_password):
         return jsonify({'msg': '정보를 모두 입력해주세요!'})
-    if bool(re.Match(reg,user_id)):
+    if bool(re.Match(reg, user_id)):
         return jsonify({'msg': '유효한 이메일 주소가 아닙니다.'})
     elif user_password != user_re_password:
         return jsonify({'msg': '비밀번혹가 일치하지 않습니다.'})
     else:
         doc = {
-            'user_name' : user_name,
+            'user_name': user_name,
             'user_id': user_id,
             'user_password': user_password,
             'user_re_password': user_re_password
@@ -221,13 +208,11 @@ SECRET_PRE = 'SPARTA'
 
 @app.route('/login', methods=['POST'])
 def login():
-
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
     result = db.hiuser.find_one({'user_id': id_receive, 'user_password': pw_receive})
-    nick= db.hiuser.find_one({'user_id':id_receive})
+    nick = db.hiuser.find_one({'user_id': id_receive})
     name = (nick['user_name'])
-
 
     print(result)
     if result is not None:
@@ -237,7 +222,7 @@ def login():
         }
 
         token = jwt.encode(payload, SECRET_PRE, algorithm='HS256').decode('utf-8')
-        return jsonify({'result': 'success', 'token': token,'name' : name});
+        return jsonify({'result': 'success', 'token': token, 'name': name});
 
         header = jwt.decode(payload, SECRET_PRE, algorithm='HS256')
         value = header.get("user_name")
@@ -245,6 +230,24 @@ def login():
 
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'});
+
+
+@app.route("/movie", methods=["GET"])
+def movie_get():
+    movie_list = list(db.movies.find({}, {'_id': False}))
+    return jsonify({'movies': movie_list})
+
+
+@app.route('/pre', methods=['GET'])
+def pre_get():
+    premovie_list = list(db.preMovies.find({}, {'_id': False}))
+    return jsonify({'preMovies': premovie_list})
+
+
+@app.route("/homework", methods=["GET"])
+def homework_get():
+    comment_list = list(db.homework.find({}, {'_id': False}))
+    return jsonify({'comments': comment_list})
 
 
 if __name__ == '__main__':
