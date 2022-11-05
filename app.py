@@ -18,12 +18,6 @@ m.update('Life is too short'.encode('utf-8'))
 client = MongoClient('mongodb+srv://test:sparta@cluster0.lyxqol2.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-data = requests.get('http://www.cgv.co.kr/movies/pre-movies.aspx', headers=headers)
-
-soup = BeautifulSoup(data.text, 'html.parser')
-
 
 @app.route('/')
 def home():
@@ -56,7 +50,7 @@ def movie_post():
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    data = requests.get('http://www.cgv.co.kr/movies/?lt=1&ft=0', headers=headers)
+    data = requests.get('http://www.cgv.co.kr/movies/', headers=headers)
 
     soup = BeautifulSoup(data.text, 'html.parser')
 
@@ -138,6 +132,12 @@ def movie_post():
 @app.route("/pre-movies", methods=["POST"])
 def premovies_post():
     db.movies.drop()
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get('http://www.cgv.co.kr/movies/pre-movies.aspx', headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+
     tagTemp = '#contents > div.wrap-movie-chart > div.sect-movie-chart > ol:nth-child(number) > li'
     for i in range(4, 52, 2):
         tag = tagTemp.replace('number', str(i))
