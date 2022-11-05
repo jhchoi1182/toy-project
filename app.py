@@ -27,6 +27,12 @@ def premovies():
     return render_template('premovies.html')
 
 
+
+@app.route('/comments')
+def comment():
+    return render_template('comment.html')
+
+
 @app.route("/movie", methods=["POST"])
 def movie_post():
     db.movies.drop()
@@ -112,10 +118,49 @@ def movie_post():
     return jsonify({'msg': '로딩완료'})
 
 
+@app.route("/pre-movies", methods=["POST"])
+def premovies_post():
+    db.preMovies.drop()
+    tagTemp = '#contents > div.wrap-movie-chart > div.sect-movie-chart > ol:nth-child(number) > li'
+    for i in range(4, 52, 2):
+        tag = tagTemp.replace('number', str(i))
+        movies = soup.select(tag)
+
+        for movie in movies:
+            title = movie.select_one('div.box-contents > a > strong').text
+            img = movie.select_one('div.box-image > a > span > img')['src']
+            link = movie.select_one('div.box-image > a')['href']
+            booking = movie.select_one('div.box-contents > div > strong').text
+            date = movie.select_one('div.box-contents > span.txt-info > strong').text.split()[0]
+            schedule = movie.select_one('div.box-contents > span.txt-info > strong > span').text
+
+            doc = {
+                'title': title,
+                'img': img,
+                'link': link,
+                'booking': booking,
+                'date': date,
+                'schedule': schedule
+            }
+
+            db.preMovies.insert_one(doc)
+    return jsonify({'msg': '로딩완료'})
+
+@app.route("/homework", methods=["POST"])
+def homework_post():
+    name_receive = request.form["name_give"]
+    comment_receive = request.form["comment_give"]
+    doc = {
+        'name': name_receive,
+        'comment': comment_receive
+    }
+    db.homework.insert_one(doc)
+    return jsonify({'msg': '작성완료!'})
+
+
 @app.route("/movie", methods=["GET"])
 def movie_get():
     movie_list = list(db.movies.find({}, {'_id': False}))
-
     return jsonify({'movies': movie_list})
 
 
@@ -123,6 +168,14 @@ def movie_get():
 def pre_get():
     premovie_list = list(db.preMovies.find({}, {'_id': False}))
     return jsonify({'preMovies': premovie_list})
+
+
+@app.route("/homework", methods=["GET"])
+def homework_get():
+    comment_list = list(db.homework.find({}, {'_id': False}))
+    return jsonify({'comments': comment_list})
+
+
 
 
 if __name__ == '__main__':
