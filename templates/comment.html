@@ -162,7 +162,16 @@
         .mybtn > button {
             margin-right: 10px;
         }
+        .login > li > button {
+        border: 0;
+        outline: 0;
+        background-color: transparent;
+        }
 
+        .login > li > button > span {
+        font-size: 25px;
+        display: block;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -171,7 +180,7 @@
                 let name = sessionStorage.getItem('name')
                 $('#login').hide();
                 $('#register').hide();
-                user_html =`<p>${name}님 환영합니다</p><button type="button" onclick="logout()">로그아웃</button>`
+                user_html = `<div class="login"><li><a><span>${name}</span></a></li><li><button type="button" onclick="logout()"><img src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그아웃</span></button></li></div>`
                 $('#user').append(user_html)
 
 
@@ -252,10 +261,10 @@
         <li><a href="#" onclick="location.reload();">코멘트 남기기</a></li>
 
         <div class="login" id="user">
-            <li id="login" name="login"><a href="#"><img
+            <li id="login" name="login"><a onclick="location.href='/login'"><img
                     src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"><span>로그인</span></a>
             </li>
-            <li name="register" id="register"><a href="#"><img
+            <li name="register" id="register"><a onclick="location.href='/register'"><img
                     src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"><span>회원가입</span></a>
             </li>
         </div>
